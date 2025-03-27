@@ -26,7 +26,6 @@ class TestAccessNestedMap(unittest.TestCase):
         ({}, ("a",), 'a'),
         ({"a": 1}, ("a", "b"), 'b'),
     ])
-
     def test_access_nested_map_exception(self, nested_map, path, expected):
         """ Test the function access_nested_map """
         with self.assertRaises(KeyError) as context:
@@ -41,10 +40,9 @@ class TestGetJson(unittest.TestCase):
         ("http://holberton.io", {"payload": False}),
     ])
     def test_get_json(self, test_url, test_payload):
-        """ Test that get_json returns the correct payload and calls requests.get once """
-        # patch remplace 'requests.get' par un mock
+        """ Test that get_json returns the correct payload """
         with patch("utils.requests.get") as mock_get:
-            # On prépare un mock qui retournera un .json() simulé
+            # patch remplace 'requests.get' par un mock
             mock_response = Mock()
             mock_response.json.return_value = test_payload
             mock_get.return_value = mock_response
@@ -58,8 +56,7 @@ class TestGetJson(unittest.TestCase):
 class TestMemoize(unittest.TestCase):
     """ Test the function memoize """
     def test_memoize(self):
-        """ Test that when calling a_property twice, the correct result is returned but a_method is only called once using
-        assert_called_once """
+        """ Test that a_method is only called once """
         class TestClass:
             def a_method(self):
                 return 42
@@ -67,8 +64,8 @@ class TestMemoize(unittest.TestCase):
             @memoize
             def a_property(self):
                 return self.a_method()
-        # patch remplace 'a_method' par un mock
         with patch.object(TestClass, "a_method", return_value=42) as mocked_method:
+            # patch remplace 'a_method' par un mock
             obj = TestClass()
             result1 = obj.a_property
             result2 = obj.a_property
