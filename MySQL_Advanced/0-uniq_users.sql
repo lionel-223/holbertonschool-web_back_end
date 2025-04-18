@@ -1,0 +1,2 @@
+-- Create a unique table with a script tha can be exécuted on any database and that won't fail if the table already exists.
+CREATE TABLE IF NOT EXISTS users (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, email VARCHAR(255) NOT NULL UNIQUE, name VARCHAR(255));
